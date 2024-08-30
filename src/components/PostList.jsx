@@ -1,23 +1,29 @@
 import Post from "./Post";
 import classes from "./PostList.module.css";
 import NewPost from "./NewPost";
+import Modal from "./Modal";
 import { useState } from "react";
 
 export default function PostList() {
-  const [textBody, setTextBody] = useState('');   
-  const [enteredName, setEnteredName] = useState(''); 
+  const [textBody, setTextBody] = useState("");
+  const [enteredName, setEnteredName] = useState("");
 
-  function textBodyChangeHandler(event){
+  function textBodyChangeHandler(event) {
     setTextBody(event.target.value);
   }
 
-  function nameChangeHandler(event){
+  function nameChangeHandler(event) {
     setEnteredName(event.target.value);
   }
 
   return (
     <>
-    <NewPost onTextBody={textBodyChangeHandler} onNameChange={nameChangeHandler} />
+      <Modal>
+        <NewPost
+          onTextBody={textBodyChangeHandler}
+          onNameChange={nameChangeHandler}
+        />
+      </Modal>
       <ul className={classes.posts}>
         <Post author={enteredName} body={textBody} />
         <Post
