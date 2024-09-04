@@ -4,14 +4,9 @@ import NewPost from "./NewPost";
 import Modal from "./Modal";
 import { useState } from "react";
 
-export default function PostList() {
-  const [modalIsVisable, setModalvisable] = useState(true); 
+export default function PostList({isPsoting, onStopPosting}) {
   const [textBody, setTextBody] = useState("");
   const [enteredName, setEnteredName] = useState("");
-
-  function hideModalHandler() {
-    setModalvisable(false);
-  }
 
   function textBodyChangeHandler(event) {
     setTextBody(event.target.value);
@@ -21,22 +16,17 @@ export default function PostList() {
     setEnteredName(event.target.value);
   }
 
-  let modalContent;
-
-  if (modalIsVisable){
-    modalContent =
-    <Modal 
-      onClose={hideModalHandler}>
-      <NewPost
-        onTextBody={textBodyChangeHandler}
-        onNameChange={nameChangeHandler}
-      />
-    </Modal>
-  }
-
   return (
     <>
-      {modalContent}
+      {isPsoting && (
+        <Modal 
+        onClose={onStopPosting}>
+        <NewPost
+          onTextBody={textBodyChangeHandler}
+          onNameChange={nameChangeHandler}
+        />
+      </Modal>
+      )}
       <ul className={classes.posts}>
         <Post author={enteredName} body={textBody} />
         <Post
