@@ -24,6 +24,7 @@ export default function PostList({isPsoting, onStopPosting}) {
         <NewPost
           onTextBody={textBodyChangeHandler}
           onNameChange={nameChangeHandler}
+          onCancel={onStopPosting}
         />
       </Modal>
       )}
