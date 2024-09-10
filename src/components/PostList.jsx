@@ -5,15 +5,10 @@ import Modal from "./Modal";
 import { useState } from "react";
 
 export default function PostList({isPsoting, onStopPosting}) {
-  const [textBody, setTextBody] = useState("");
-  const [enteredName, setEnteredName] = useState("");
+  const [posts, setPosts] = useState([]);
 
-  function textBodyChangeHandler(event) {
-    setTextBody(event.target.value);
-  }
-
-  function nameChangeHandler(event) {
-    setEnteredName(event.target.value);
+  function addPostHandler(postData){
+    setPosts((existingPost) => [postData, ...existingPost]);
   }
 
   return (
@@ -22,18 +17,14 @@ export default function PostList({isPsoting, onStopPosting}) {
         <Modal 
         onClose={onStopPosting}>
         <NewPost
-          onTextBody={textBodyChangeHandler}
-          onNameChange={nameChangeHandler}
           onCancel={onStopPosting}
+          onAddPost={addPostHandler}
         />
       </Modal>
       )}
       <ul className={classes.posts}>
-        <Post author={enteredName} body={textBody} />
-        <Post
-          author="Andrew"
-          body="React is great! It is my favorite front end librery!"
-        />
+        {/* key should be something else like id, body is sufficient for now, but not a good practise */}
+        {posts.map((post) => <Post key={post.body} author={post.author} body={post.body}/>)} 
       </ul>
     </>
   );
