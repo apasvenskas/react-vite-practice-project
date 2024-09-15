@@ -22,10 +22,17 @@ export default function PostList({isPsoting, onStopPosting}) {
         />
       </Modal>
       )}
-      <ul className={classes.posts}>
+      {posts.length > 0 &&  <ul className={classes.posts}>
         {/* key should be something else like id, body is sufficient for now, but not a good practise */}
         {posts.map((post) => <Post key={post.body} author={post.author} body={post.body}/>)} 
       </ul>
+      }
+      {posts.length === 0 && (
+        <div style={{textAlign: 'center', color: 'white'}}>
+          <h2>There are no posts yet.</h2>
+          <p>Go ahead and post something!!</p>
+        </div>
+      )}
     </>
   );
 }
